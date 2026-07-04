@@ -4,6 +4,10 @@ English | [简体中文](./README.zh-CN.md)
 
 A customizable Flutter package for a floating bottom navigation bar with a raised center item.
 
+## Demo
+
+![Demo](./static/demo.gif)
+
 ## Features
 
 - Controlled active/inactive state with `currentIndex`
