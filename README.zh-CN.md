@@ -6,7 +6,7 @@
 
 ## 演示效果
 
-![演示效果](./static/demo.gif)
+![演示效果](https://raw.githubusercontent.com/ryanByte1024/flutter-arc-floating-bottom-nav/master/static/demo.gif)
 
 ## 功能特性
 

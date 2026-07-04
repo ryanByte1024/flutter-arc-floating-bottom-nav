@@ -6,7 +6,7 @@ A customizable Flutter package for a floating bottom navigation bar with a raise
 
 ## Demo
 
-![Demo](./static/demo.gif)
+![Demo](https://raw.githubusercontent.com/ryanByte1024/flutter-arc-floating-bottom-nav/master/static/demo.gif)
 
 ## Features
 
