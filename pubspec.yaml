@@ -1,6 +1,6 @@
 name: arc_floating_bottom_nav
 description: A customizable floating bottom navigation bar for Flutter with a raised center item.
-version: 0.1.1
+version: 0.1.0
 topics:
   - flutter
   - navigation
