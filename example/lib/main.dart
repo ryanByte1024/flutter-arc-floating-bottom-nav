@@ -32,38 +32,39 @@ class ExampleHomePage extends StatefulWidget {
 class _ExampleHomePageState extends State<ExampleHomePage> {
   int _currentIndex = 0;
 
-  late final List<FloatingBottomNavigationItem>
-  _items = <FloatingBottomNavigationItem>[
-    const FloatingBottomNavigationItem(
-      label: 'Home',
-      icon: Icons.home_outlined,
-      activeIcon: Icons.home_outlined,
-    ),
-    const FloatingBottomNavigationItem(
-      label: 'Car Life',
-      icon: Icons.directions_car_outlined,
-      activeIcon: Icons.directions_car_outlined,
-    ),
-    const FloatingBottomNavigationItem(
-      label: 'AI Travel',
-      isCenter: true,
-      centerImage: NetworkImage(
-        'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80',
-      ),
-      activeColor: Color(0xFF1E88FF),
-      inactiveColor: Color(0xFF223D72),
-    ),
-    const FloatingBottomNavigationItem(
-      label: 'Explore',
-      icon: Icons.explore_outlined,
-      activeIcon: Icons.explore_outlined,
-    ),
-    const FloatingBottomNavigationItem(
-      label: 'Profile',
-      icon: Icons.person_outline_rounded,
-      activeIcon: Icons.person_outline_rounded,
-    ),
-  ];
+  late final List<FloatingBottomNavigationItem> _items =
+      <FloatingBottomNavigationItem>[
+        const FloatingBottomNavigationItem(
+          label: 'Home',
+          icon: Icons.home_outlined,
+          activeIcon: Icons.home_outlined,
+        ),
+        const FloatingBottomNavigationItem(
+          label: 'Car Life',
+          icon: Icons.directions_car_outlined,
+          activeIcon: Icons.directions_car_outlined,
+        ),
+        const FloatingBottomNavigationItem(
+          label: 'AI Travel',
+          isCenter: true,
+          centerVariant: FloatingCenterButtonVariant.circleBackground,
+          centerIcon: Icons.auto_awesome,
+          activeCenterIcon: Icons.auto_awesome,
+          centerIconSize: 28,
+          activeColor: Color(0xFF1E88FF),
+          inactiveColor: Color(0xFF223D72),
+        ),
+        const FloatingBottomNavigationItem(
+          label: 'Explore',
+          icon: Icons.explore_outlined,
+          activeIcon: Icons.explore_outlined,
+        ),
+        const FloatingBottomNavigationItem(
+          label: 'Profile',
+          icon: Icons.person_outline_rounded,
+          activeIcon: Icons.person_outline_rounded,
+        ),
+      ];
 
   @override
   Widget build(BuildContext context) {
@@ -115,8 +116,8 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
           centerTop: 42,
           centerSelectedSize: 54,
           centerUnselectedSize: 54,
-          centerButtonPadding: EdgeInsets.zero,
-          centerButtonColor: Colors.transparent,
+          centerButtonPadding: EdgeInsets.all(12),
+          centerButtonColor: Color(0xFFEDF6FF),
           centerShadowColor: Color(0x22000000),
           centerShadowBlur: 12,
           centerShadowOffset: Offset(0, 4),

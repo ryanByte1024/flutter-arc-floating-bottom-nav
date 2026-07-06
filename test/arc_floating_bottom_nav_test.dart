@@ -61,4 +61,62 @@ void main() {
 
     expect(currentIndex, 4);
   });
+
+  testWidgets('supports icon-only center button variant', (
+    WidgetTester tester,
+  ) async {
+    int currentIndex = 2;
+
+    final List<FloatingBottomNavigationItem> items =
+        <FloatingBottomNavigationItem>[
+          const FloatingBottomNavigationItem(
+            label: 'Home',
+            icon: Icons.home_outlined,
+          ),
+          const FloatingBottomNavigationItem(
+            label: 'Trips',
+            icon: Icons.directions_car_outlined,
+          ),
+          const FloatingBottomNavigationItem(
+            label: 'Publish',
+            isCenter: true,
+            centerVariant: FloatingCenterButtonVariant.iconOnly,
+            centerIcon: Icons.add,
+            activeCenterIcon: Icons.close,
+          ),
+          const FloatingBottomNavigationItem(
+            label: 'Explore',
+            icon: Icons.explore_outlined,
+          ),
+          const FloatingBottomNavigationItem(
+            label: 'Profile',
+            icon: Icons.person_outline,
+          ),
+        ];
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Scaffold(
+              body: const SizedBox.shrink(),
+              bottomNavigationBar: FloatingBottomNavigationBar(
+                items: items,
+                currentIndex: currentIndex,
+                onTap: (int index) => setState(() => currentIndex = index),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+
+    expect(find.byIcon(Icons.close), findsOneWidget);
+    expect(find.byIcon(Icons.add), findsNothing);
+
+    await tester.tap(find.text('Home'));
+    await tester.pumpAndSettle();
+
+    expect(currentIndex, 0);
+  });
 }

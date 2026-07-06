@@ -11,7 +11,7 @@
 ## 功能特性
 
 - 通过 `currentIndex` 控制选中态
-- 支持单个居中抬起项，可使用图片或自定义组件
+- 支持单个居中抬起项，可使用图片、自定义组件或图标
 - 支持调节顶部曲线，实现圆滑的中间上凸效果
 - 支持颜色、间距、模糊、阴影、文字样式和图标状态配置
 - 适配底部安全区
@@ -55,7 +55,8 @@ class _DemoPageState extends State<DemoPage> {
         const FloatingBottomNavigationItem(
           label: 'AI Travel',
           isCenter: true,
-          centerImage: NetworkImage('https://picsum.photos/200'),
+          centerVariant: FloatingCenterButtonVariant.circleBackground,
+          centerIcon: Icons.auto_awesome,
         ),
         const FloatingBottomNavigationItem(
           label: 'Explore',
@@ -116,8 +117,14 @@ class _DemoPageState extends State<DemoPage> {
 | `iconBuilder` | `Widget Function(BuildContext, bool, Color)?` | 普通导航项的自定义图标构建器，参数依次为 `context`、`selected`、解析后的颜色。 |
 | `isCenter` | `bool` | 是否标记为唯一的中间抬起项。 |
 | `filledSelection` | `bool` | 为 `true` 时，普通导航项在选中状态下会显示实心圆形底。 |
+| `centerVariant` | `FloatingCenterButtonVariant` | 中间按钮外观类型。`iconOnly` 为纯图标，`circleBackground` 为圆形背景+图标/内容。 |
 | `centerImage` | `ImageProvider<Object>?` | 中间项使用的图片资源。 |
 | `centerChild` | `Widget?` | 不使用 `centerImage` 时，中间项显示的自定义内容。 |
+| `centerIcon` | `IconData?` | 中间项默认图标。 |
+| `activeCenterIcon` | `IconData?` | 中间项选中时显示的图标。 |
+| `centerIconSize` | `double?` | 中间项普通状态下的图标尺寸。 |
+| `activeCenterIconSize` | `double?` | 中间项选中状态下的图标尺寸。 |
+| `centerIconBuilder` | `Widget Function(BuildContext, bool, Color)?` | 中间项自定义图标内容构建器，参数依次为 `context`、`selected`、解析后的图标颜色。 |
 | `centerSize` | `double?` | 中间项未选中时的尺寸。 |
 | `activeCenterSize` | `double?` | 中间项选中时的尺寸。 |
 | `activeColor` | `Color?` | 当前项激活态图标或文字颜色覆盖值。 |

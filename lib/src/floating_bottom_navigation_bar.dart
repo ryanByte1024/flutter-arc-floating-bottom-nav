@@ -347,6 +347,16 @@ class _CenterButton extends StatelessWidget {
     final double size = selected
         ? item.activeCenterSize ?? item.centerSize ?? style.centerSelectedSize
         : item.centerSize ?? style.centerUnselectedSize;
+    final Color activeColor = item.activeColor ?? style.selectedItemColor;
+    final Color inactiveColor = item.inactiveColor ?? style.unselectedItemColor;
+    final Color resolvedIconColor = selected ? activeColor : inactiveColor;
+    final double iconSize = selected
+        ? item.activeCenterIconSize ??
+              item.centerIconSize ??
+              item.activeCenterSize ??
+              item.centerSize ??
+              style.itemIconSize
+        : item.centerIconSize ?? item.centerSize ?? style.itemIconSize;
     final double labelTopInsideCenter =
         regularLabelTop - (style.outerPadding.top + style.centerTop);
     final double labelOffset =
@@ -366,33 +376,32 @@ class _CenterButton extends StatelessWidget {
             curve: Curves.easeOutCubic,
             width: size,
             height: size,
-            padding: style.centerButtonPadding,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: style.centerButtonColor,
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                  color: style.centerShadowColor,
-                  blurRadius: style.centerShadowBlur,
-                  offset: style.centerShadowOffset,
-                ),
-              ],
-            ),
-            child: ClipOval(
-              child: Stack(
-                fit: StackFit.expand,
-                children: <Widget>[
-                  if (item.centerImage != null)
-                    Image(image: item.centerImage!, fit: BoxFit.cover)
-                  else
-                    item.centerChild!,
-                  DecoratedBox(
-                    decoration: BoxDecoration(
-                      gradient: style.centerForegroundGradient,
-                    ),
-                  ),
-                ],
-              ),
+            padding:
+                item.centerVariant ==
+                    FloatingCenterButtonVariant.circleBackground
+                ? style.centerButtonPadding
+                : EdgeInsets.zero,
+            decoration:
+                item.centerVariant ==
+                    FloatingCenterButtonVariant.circleBackground
+                ? BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: style.centerButtonColor,
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                        color: style.centerShadowColor,
+                        blurRadius: style.centerShadowBlur,
+                        offset: style.centerShadowOffset,
+                      ),
+                    ],
+                  )
+                : null,
+            child: _CenterButtonContent(
+              item: item,
+              selected: selected,
+              iconSize: iconSize,
+              iconColor: resolvedIconColor,
+              foregroundGradient: style.centerForegroundGradient,
             ),
           ),
           Transform.translate(
@@ -406,6 +415,60 @@ class _CenterButton extends StatelessWidget {
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class _CenterButtonContent extends StatelessWidget {
+  const _CenterButtonContent({
+    required this.item,
+    required this.selected,
+    required this.iconSize,
+    required this.iconColor,
+    required this.foregroundGradient,
+  });
+
+  final FloatingBottomNavigationItem item;
+  final bool selected;
+  final double iconSize;
+  final Color iconColor;
+  final Gradient foregroundGradient;
+
+  @override
+  Widget build(BuildContext context) {
+    if (item.centerIconBuilder != null) {
+      return item.centerVariant == FloatingCenterButtonVariant.circleBackground
+          ? ClipOval(
+              child: Center(
+                child: item.centerIconBuilder!(context, selected, iconColor),
+              ),
+            )
+          : Center(
+              child: item.centerIconBuilder!(context, selected, iconColor),
+            );
+    }
+
+    if (item.centerIcon != null) {
+      return Center(
+        child: Icon(
+          selected ? item.activeCenterIcon ?? item.centerIcon : item.centerIcon,
+          size: iconSize,
+          color: iconColor,
+        ),
+      );
+    }
+
+    return ClipOval(
+      child: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          if (item.centerImage != null)
+            Image(image: item.centerImage!, fit: BoxFit.cover)
+          else
+            item.centerChild!,
+          DecoratedBox(decoration: BoxDecoration(gradient: foregroundGradient)),
         ],
       ),
     );

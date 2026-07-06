@@ -11,7 +11,7 @@ A customizable Flutter package for a floating bottom navigation bar with a raise
 ## Features
 
 - Controlled active/inactive state with `currentIndex`
-- One dedicated center item with image or custom widget support
+- One dedicated center item with image, custom widget, or icon support
 - Tunable top curve for a soft raised center shape
 - Configurable colors, spacing, blur, shadows, labels, and icon behavior
 - Safe-area aware bottom layout
@@ -55,7 +55,8 @@ class _DemoPageState extends State<DemoPage> {
         const FloatingBottomNavigationItem(
           label: 'AI Travel',
           isCenter: true,
-          centerImage: NetworkImage('https://picsum.photos/200'),
+          centerVariant: FloatingCenterButtonVariant.circleBackground,
+          centerIcon: Icons.auto_awesome,
         ),
         const FloatingBottomNavigationItem(
           label: 'Explore',
@@ -116,8 +117,14 @@ class _DemoPageState extends State<DemoPage> {
 | `iconBuilder` | `Widget Function(BuildContext, bool, Color)?` | Custom icon builder for a regular item. Receives `context`, `selected`, and resolved icon color. |
 | `isCenter` | `bool` | Marks the item as the single raised center item. |
 | `filledSelection` | `bool` | When `true`, the selected regular item gets a filled circular background. |
+| `centerVariant` | `FloatingCenterButtonVariant` | Center button appearance. Use `iconOnly` for a pure icon, or `circleBackground` for a circular background plus icon/content. |
 | `centerImage` | `ImageProvider<Object>?` | Image source for the center item. |
 | `centerChild` | `Widget?` | Custom center content when you do not use `centerImage`. |
+| `centerIcon` | `IconData?` | Default icon for the center item. |
+| `activeCenterIcon` | `IconData?` | Icon shown when the center item is selected. |
+| `centerIconSize` | `double?` | Icon size for the center item in the regular state. |
+| `activeCenterIconSize` | `double?` | Icon size for the center item in the selected state. |
+| `centerIconBuilder` | `Widget Function(BuildContext, bool, Color)?` | Custom builder for the center icon content. Receives `context`, `selected`, and resolved icon color. |
 | `centerSize` | `double?` | Center item size in the unselected state. |
 | `activeCenterSize` | `double?` | Center item size in the selected state. |
 | `activeColor` | `Color?` | Active icon or label color override for this item. |
